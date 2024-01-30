@@ -2,22 +2,25 @@ package br.com.producaovalhallakitchen.core.domain;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.UUID;
 
-@Data
+@Getter
 @Builder
 public class Pedido {
 
     private Long id;
     @Builder.Default
+    @Setter
     private String status = "Recebido";
 
     private UUID clienteId;
     private String nomeCliente;
 
-    private List<Produto> produtos;
+    private List<Long> produtos;
 
     @Builder.Default
     private String statusPagamento = "Aguardando";
