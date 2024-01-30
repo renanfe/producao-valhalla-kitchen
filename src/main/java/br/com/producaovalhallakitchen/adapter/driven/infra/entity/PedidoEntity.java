@@ -27,6 +27,7 @@ public class PedidoEntity {
 
     @Column(name = "status")
     @Builder.Default
+    @Setter
     private String status = "Recebido";
 
     @ElementCollection
