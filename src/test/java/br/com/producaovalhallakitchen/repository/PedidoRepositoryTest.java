@@ -56,10 +56,16 @@ public class PedidoRepositoryTest {
 
     @Test
     public void quandoBuscoFilaDePedidos_entaoDeveBuscarFilaDePedidosNaBase(){
-        PedidoEntity pedidoEntity = PedidoHelper.buildPedidoEntity();
-        when(pedidoRepositoryJpa.findByStatusIn(anyList())).thenReturn(List.of(pedidoEntity));
+        PedidoEntity pedidoEntityPronto = PedidoHelper.buildPedidoEntity();
+        pedidoEntityPronto.setStatus("Pronto");
+        PedidoEntity pedidoEntityPreparação = PedidoHelper.buildPedidoEntity();
+        pedidoEntityPreparação.setStatus("Em preparação");
+        PedidoEntity pedidoEntityRecebido = PedidoHelper.buildPedidoEntity();
+        pedidoEntityRecebido.setStatus("Recebido");
+        when(pedidoRepositoryJpa.findByStatusIn(anyList())).thenReturn(List.of(pedidoEntityPronto, pedidoEntityPreparação, pedidoEntityRecebido));
         List<Pedido> pedido = pedidoRepository.buscarFilaPedidos(List.of("Recebido", "Em preparação", "Pronto"));
         assertNotNull(pedido);
         verify(pedidoRepositoryJpa, times(1)).findByStatusIn(anyList());
     }
+
 }
