@@ -1,17 +1,14 @@
 package br.com.producaovalhallakitchen.adapter.driven.infra.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "pedido")
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
