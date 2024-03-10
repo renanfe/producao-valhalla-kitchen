@@ -22,14 +22,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(PedidoController.class) //Setar controlador
 @ExtendWith(MockitoExtension.class)
-public class PedidoControllerTest {
+class PedidoControllerTest {
 
     @MockBean
     private PedidoService pedidoService;
     @Autowired
     private MockMvc mvc;
     @Test
-    public void quandoEuReceboUmPedido_entaoOPedidoDeveSerCadastrado() throws Exception{
+    void quandoEuReceboUmPedido_entaoOPedidoDeveSerCadastrado() throws Exception{
         PedidoForm pedidoForm = PedidoHelper.buildPedidoForm();
         when(pedidoService.criarPedido(any(PedidoForm.class))).thenReturn(PedidoHelper.buildPedido());
         mvc.perform(post("/v1/pedidos")
@@ -40,7 +40,7 @@ public class PedidoControllerTest {
         verify(pedidoService, times(1)).criarPedido(any(PedidoForm.class));
     }
     @Test
-    public void quandoSolicitoTodosOsPedidos_entaoDevoRetornarOPedido() throws Exception{
+    void quandoSolicitoTodosOsPedidos_entaoDevoRetornarOPedido() throws Exception{
         Pedido pedido = PedidoHelper.buildPedido();
         when(pedidoService.buscarTodosPedidos()).thenReturn(List.of(pedido));
         mvc.perform(get("/v1/pedidos")
@@ -50,7 +50,7 @@ public class PedidoControllerTest {
     }
 
     @Test
-    public void quandoSolicitoUmPedidoPorId_entaoDevoRetornarOPedido() throws Exception{
+    void quandoSolicitoUmPedidoPorId_entaoDevoRetornarOPedido() throws Exception{
         Pedido pedido = PedidoHelper.buildPedido();
         when(pedidoService.buscarPedidoPorId(any(Long.class))).thenReturn(Optional.of(pedido));
         mvc.perform(get("/v1/pedidos/{id}", 1L)
@@ -60,7 +60,7 @@ public class PedidoControllerTest {
     }
 
     @Test
-    public void quandoSolicitoAFilaDePedidos_entaoDevoRetornarAFilaDePedidos() throws Exception{
+    void quandoSolicitoAFilaDePedidos_entaoDevoRetornarAFilaDePedidos() throws Exception{
         Pedido pedido = PedidoHelper.buildPedido();
         when(pedidoService.consultarFila()).thenReturn(List.of(pedido));
         mvc.perform(get("/v1/pedidos/fila")
@@ -70,7 +70,7 @@ public class PedidoControllerTest {
     }
 
     @Test
-    public void quandoSolicitoAAlteraçãoDoPedido_entaoAlterarOStatusDoPedidoERetornarOMesmo() throws Exception{
+    void quandoSolicitoAAlteraçãoDoPedido_entaoAlterarOStatusDoPedidoERetornarOMesmo() throws Exception{
         Pedido pedido = PedidoHelper.buildPedido();
         when(pedidoService.alterarStatusPedido(any(Long.class))).thenReturn(Optional.of(pedido));
         mvc.perform(patch("/v1/pedidos/{Id}", 1L)

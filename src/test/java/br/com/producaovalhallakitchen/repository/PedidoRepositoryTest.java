@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(MockitoExtension.class)
-public class PedidoRepositoryTest {
+class PedidoRepositoryTest {
 
     private PedidoRepositoryImpl pedidoRepository;
     @Mock
@@ -29,7 +29,7 @@ public class PedidoRepositoryTest {
     }
 
     @Test
-    public void quandoEuSalvoUmPedido_entaoDeveSalvarOPedido(){
+    void quandoEuSalvoUmPedido_entaoDeveSalvarOPedido(){
         PedidoEntity pedidoEntity = PedidoHelper.buildPedidoEntity();
         when(pedidoRepositoryJpa.save(any(PedidoEntity.class))).thenReturn(pedidoEntity);
         Pedido pedido = pedidoRepository.salvarPedido(PedidoHelper.buildPedido());
@@ -37,7 +37,7 @@ public class PedidoRepositoryTest {
         verify(pedidoRepositoryJpa, times(1)).save(any(PedidoEntity.class));
     }
     @Test
-    public void quandoBuscoTodosOsPedidos_entaoDeveBuscarTodosOsPedidosNaBase(){
+    void quandoBuscoTodosOsPedidos_entaoDeveBuscarTodosOsPedidosNaBase(){
         PedidoEntity pedidoEntity = PedidoHelper.buildPedidoEntity();
         when(pedidoRepositoryJpa.findAll()).thenReturn(List.of(pedidoEntity));
         List<Pedido> pedido = pedidoRepository.buscarTodosPedidos();
@@ -46,7 +46,7 @@ public class PedidoRepositoryTest {
     }
 
     @Test
-    public void quandoBuscoUmPedidoPorId_entaoDeveBuscarOPedidoNaBase(){
+    void quandoBuscoUmPedidoPorId_entaoDeveBuscarOPedidoNaBase(){
         PedidoEntity pedidoEntity = PedidoHelper.buildPedidoEntity();
         when(pedidoRepositoryJpa.findById(anyLong())).thenReturn(java.util.Optional.of(pedidoEntity));
         var pedido = pedidoRepository.buscarPedidoPorId(1L);
@@ -55,7 +55,7 @@ public class PedidoRepositoryTest {
     }
 
     @Test
-    public void quandoBuscoFilaDePedidos_entaoDeveBuscarFilaDePedidosNaBase(){
+    void quandoBuscoFilaDePedidos_entaoDeveBuscarFilaDePedidosNaBase(){
         PedidoEntity pedidoEntityPronto = PedidoHelper.buildPedidoEntity();
         pedidoEntityPronto.setStatus("Pronto");
         PedidoEntity pedidoEntityPreparação = PedidoHelper.buildPedidoEntity();
