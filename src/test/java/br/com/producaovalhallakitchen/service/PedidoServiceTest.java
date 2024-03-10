@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class PedidoServiceTest {
+class PedidoServiceTest {
 
     PedidoService pedidoService;
 
@@ -32,7 +32,7 @@ public class PedidoServiceTest {
     }
 
     @Test
-    public void quandoBuscoTodosOsPedidos_entaoDeveRetornarTodosOsPedidos(){
+    void quandoBuscoTodosOsPedidos_entaoDeveRetornarTodosOsPedidos(){
         Pedido pedido = PedidoHelper.buildPedido();
         when(pedidoRepository.buscarTodosPedidos()).thenReturn(List.of(pedido));
         List<Pedido> pedidos = pedidoService.buscarTodosPedidos();
@@ -41,7 +41,7 @@ public class PedidoServiceTest {
     }
 
     @Test
-    public void quandoBuscoPedidoPorId_entaoDeveRetornarPedido(){
+    void quandoBuscoPedidoPorId_entaoDeveRetornarPedido(){
         when(pedidoRepository.buscarPedidoPorId(1L)).thenReturn(Optional.of(PedidoHelper.buildPedido()));
         Optional<Pedido> pedido = pedidoService.buscarPedidoPorId(1L);
         assertTrue(pedido.isPresent());
@@ -49,7 +49,7 @@ public class PedidoServiceTest {
     }
 
     @Test
-    public void quandoCriarPedido_entaoDeveRetornarPedido(){
+    void quandoCriarPedido_entaoDeveRetornarPedido(){
         Pedido pedido = PedidoHelper.buildPedido();
         PedidoForm pedidoForm = PedidoHelper.buildPedidoForm();
         when(pedidoRepository.salvarPedido(any(Pedido.class))).thenReturn(pedido);
@@ -59,7 +59,7 @@ public class PedidoServiceTest {
     }
 
     @Test
-    public void quandoAlterarStatusPedido_entaoDeveRetornarPedido(){
+    void quandoAlterarStatusPedido_entaoDeveRetornarPedido(){
         Pedido pedido = PedidoHelper.buildPedido();
         when(pedidoRepository.buscarPedidoPorId(any(Long.class))).thenReturn(Optional.of(pedido));
         when(pedidoRepository.salvarPedido(any(Pedido.class))).thenReturn(pedido);
@@ -70,7 +70,7 @@ public class PedidoServiceTest {
     }
 
     @Test
-    public void quandoConsultarFila_entaoDeveRetornarPedidos(){
+    void quandoConsultarFila_entaoDeveRetornarPedidos(){
         Pedido pedido = PedidoHelper.buildPedido();
         when(pedidoRepository.buscarFilaPedidos(any(List.class))).thenReturn(List.of(pedido));
         List<Pedido> pedidos = pedidoService.consultarFila();
