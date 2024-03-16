@@ -5,6 +5,7 @@ import br.com.producaovalhallakitchen.adapter.driven.infra.jpa.PedidoRepositoryJ
 import br.com.producaovalhallakitchen.adapter.utils.mappers.PedidoMapper;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoRepository;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     }
 
     @Override
-    public Optional<Pedido> buscarPedidoPorId(Long id) {
+    public Optional<Pedido> buscarPedidoPorId(String id) {
         return pedidoRepositoryJpa.findById(id).map(PedidoMapper::pedidoEntityToPedido);
     }
 
@@ -45,8 +46,8 @@ public class PedidoRepositoryImpl implements PedidoRepository {
 
     @Override
     public List<Pedido> buscarFilaPedidos(List<String> status) {
-        List<Pedido> pedidos = new ArrayList<>();
 
+        List<Pedido> pedidos = new ArrayList<>();
         for (PedidoEntity pedido : pedidoRepositoryJpa.findByStatusIn(status)) {
             pedidos.add(PedidoMapper.pedidoEntityToPedido(pedido));
         }
