@@ -2,7 +2,7 @@ package br.com.producaovalhallakitchen.repository;
 
 import br.com.producaovalhallakitchen.adapter.driven.infra.PedidoRepositoryImpl;
 import br.com.producaovalhallakitchen.adapter.driven.infra.entity.PedidoEntity;
-import br.com.producaovalhallakitchen.adapter.driven.infra.jpa.PedidoRepositoryJpa;
+import br.com.producaovalhallakitchen.adapter.driven.infra.jpa.PedidoRepositoryMongo;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
 import br.com.producaovalhallakitchen.utils.PedidoHelper;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,15 +13,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyList;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class PedidoRepositoryTest {
 
     private PedidoRepositoryImpl pedidoRepository;
     @Mock
-    private PedidoRepositoryJpa pedidoRepositoryJpa ;
+    private PedidoRepositoryMongo pedidoRepositoryJpa ;
 
     @BeforeEach
     void setUp() {
@@ -48,10 +53,10 @@ class PedidoRepositoryTest {
     @Test
     void quandoBuscoUmPedidoPorId_entaoDeveBuscarOPedidoNaBase(){
         PedidoEntity pedidoEntity = PedidoHelper.buildPedidoEntity();
-        when(pedidoRepositoryJpa.findById(anyLong())).thenReturn(java.util.Optional.of(pedidoEntity));
-        var pedido = pedidoRepository.buscarPedidoPorId(1L);
+        when(pedidoRepositoryJpa.findById(anyString())).thenReturn(java.util.Optional.of(pedidoEntity));
+        var pedido = pedidoRepository.buscarPedidoPorId("1");
         assertTrue(pedido.isPresent());
-        verify(pedidoRepositoryJpa, times(1)).findById(anyLong());
+        verify(pedidoRepositoryJpa, times(1)).findById(anyString());
     }
 
     @Test

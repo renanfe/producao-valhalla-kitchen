@@ -9,7 +9,6 @@ import java.util.UUID;
 @Getter
 @Builder
 public class PedidoForm {
-    private List<Long> produtosId;
-    private UUID clienteId;
-    private String nomeCliente;
+    private Long pedidoId;
+    private List<ProdutoForm> produtosForm;
 }

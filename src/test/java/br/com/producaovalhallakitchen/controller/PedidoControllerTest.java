@@ -52,11 +52,11 @@ class PedidoControllerTest {
     @Test
     void quandoSolicitoUmPedidoPorId_entaoDevoRetornarOPedido() throws Exception{
         Pedido pedido = PedidoHelper.buildPedido();
-        when(pedidoService.buscarPedidoPorId(any(Long.class))).thenReturn(Optional.of(pedido));
+        when(pedidoService.buscarPedidoPorId(any(String.class))).thenReturn(Optional.of(pedido));
         mvc.perform(get("/v1/pedidos/{id}", 1L)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(pedidoService, times(1)).buscarPedidoPorId(any(Long.class));
+        verify(pedidoService, times(1)).buscarPedidoPorId(any(String.class));
     }
 
     @Test
@@ -72,10 +72,10 @@ class PedidoControllerTest {
     @Test
     void quandoSolicitoAAlteraçãoDoPedido_entaoAlterarOStatusDoPedidoERetornarOMesmo() throws Exception{
         Pedido pedido = PedidoHelper.buildPedido();
-        when(pedidoService.alterarStatusPedido(any(Long.class))).thenReturn(Optional.of(pedido));
+        when(pedidoService.alterarStatusPedido(any(String.class))).thenReturn(Optional.of(pedido));
         mvc.perform(patch("/v1/pedidos/{Id}", 1L)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(pedidoService, times(1)).alterarStatusPedido(any(Long.class));
+        verify(pedidoService, times(1)).alterarStatusPedido(any(String.class));
     }
 }
