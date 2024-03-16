@@ -48,10 +48,10 @@ class PedidoRepositoryTest {
     @Test
     void quandoBuscoUmPedidoPorId_entaoDeveBuscarOPedidoNaBase(){
         PedidoEntity pedidoEntity = PedidoHelper.buildPedidoEntity();
-        when(pedidoRepositoryJpa.findById(anyLong())).thenReturn(java.util.Optional.of(pedidoEntity));
-        var pedido = pedidoRepository.buscarPedidoPorId(1L);
+        when(pedidoRepositoryJpa.findById(anyString())).thenReturn(java.util.Optional.of(pedidoEntity));
+        var pedido = pedidoRepository.buscarPedidoPorId("1");
         assertTrue(pedido.isPresent());
-        verify(pedidoRepositoryJpa, times(1)).findById(anyLong());
+        verify(pedidoRepositoryJpa, times(1)).findById(anyString());
     }
 
     @Test
