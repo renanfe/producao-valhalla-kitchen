@@ -24,7 +24,7 @@ public class PedidoService {
         return pedidoRepository.buscarTodosPedidos();
     }
 
-    public Optional<Pedido> buscarPedidoPorId(Long id) {
+    public Optional<Pedido> buscarPedidoPorId(String id) {
         return pedidoRepository.buscarPedidoPorId(id);
     }
 
@@ -32,13 +32,12 @@ public class PedidoService {
         return pedidoRepository.salvarPedido(PedidoMapper.pedidoFormToPedido(pedidoForm));
     }
 
-    public Optional<Pedido> alterarStatusPedido(Long id) {
+    public Optional<Pedido> alterarStatusPedido(String id) {
         Optional<Pedido> pedido = pedidoRepository.buscarPedidoPorId(id);
 
         if (pedido.isPresent()) {
             Pedido pedidoAtualizado = atualizarParaProximoStatus(pedido.get(), pedido.get().getStatus());
             pedidoRepository.salvarPedido(pedidoAtualizado);
-
             return Optional.of(pedidoAtualizado);
         }
         return pedido;
@@ -50,7 +49,7 @@ public class PedidoService {
             case "Em preparação" -> pedido.setStatus("Pronto");
             case "Pronto" -> pedido.setStatus("Retirado");
             case "Retirado" -> pedido.setStatus("Finalizado");
-            default -> throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
+            default -> throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "pedido finalizado");
         }
         return pedido;
     }
