@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 public class Pedido {
 
-    private Long id;
+    private String id;
     @Builder.Default
     @Setter
     private String status = "Recebido";
