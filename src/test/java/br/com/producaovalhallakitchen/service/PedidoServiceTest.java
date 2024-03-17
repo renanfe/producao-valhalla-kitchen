@@ -42,10 +42,10 @@ class PedidoServiceTest {
 
     @Test
     void quandoBuscoPedidoPorId_entaoDeveRetornarPedido(){
-        when(pedidoRepository.buscarPedidoPorId(1L)).thenReturn(Optional.of(PedidoHelper.buildPedido()));
-        Optional<Pedido> pedido = pedidoService.buscarPedidoPorId(1L);
+        when(pedidoRepository.buscarPedidoPorId("1")).thenReturn(Optional.of(PedidoHelper.buildPedido()));
+        Optional<Pedido> pedido = pedidoService.buscarPedidoPorId("1");
         assertTrue(pedido.isPresent());
-        verify(pedidoRepository, times(1)).buscarPedidoPorId(any(Long.class));
+        verify(pedidoRepository, times(1)).buscarPedidoPorId(any(String.class));
     }
 
     @Test
@@ -61,11 +61,11 @@ class PedidoServiceTest {
     @Test
     void quandoAlterarStatusPedido_entaoDeveRetornarPedido(){
         Pedido pedido = PedidoHelper.buildPedido();
-        when(pedidoRepository.buscarPedidoPorId(any(Long.class))).thenReturn(Optional.of(pedido));
+        when(pedidoRepository.buscarPedidoPorId(any(String.class))).thenReturn(Optional.of(pedido));
         when(pedidoRepository.salvarPedido(any(Pedido.class))).thenReturn(pedido);
-        Optional<Pedido> pedidoAlterado = pedidoService.alterarStatusPedido(1L);
+        Optional<Pedido> pedidoAlterado = pedidoService.alterarStatusPedido("1");
         assertTrue(pedidoAlterado.isPresent());
-        verify(pedidoRepository, times(1)).buscarPedidoPorId(any(Long.class));
+        verify(pedidoRepository, times(1)).buscarPedidoPorId(any(String.class));
         verify(pedidoRepository, times(1)).salvarPedido(any(Pedido.class));
     }
 

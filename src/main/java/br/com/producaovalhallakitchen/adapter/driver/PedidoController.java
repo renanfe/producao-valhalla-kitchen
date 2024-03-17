@@ -24,7 +24,7 @@ public class PedidoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pedido> buscarPedidoPorId(@PathVariable Long id) {
+    public ResponseEntity<Pedido> buscarPedidoPorId(@PathVariable String id) {
         return pedidoService.buscarPedidoPorId(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -36,7 +36,7 @@ public class PedidoController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Pedido> alterarStatusPedido(@PathVariable Long id) {
+    public ResponseEntity<Pedido> alterarStatusPedido(@PathVariable String id) {
         return pedidoService.alterarStatusPedido(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

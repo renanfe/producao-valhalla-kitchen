@@ -3,6 +3,7 @@ package br.com.producaovalhallakitchen.adapter.utils.mappers;
 import br.com.producaovalhallakitchen.adapter.driven.infra.entity.PedidoEntity;
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
+import br.com.producaovalhallakitchen.core.domain.Produto;
 
 public class PedidoMapper {
     private PedidoMapper() {
@@ -11,31 +12,25 @@ public class PedidoMapper {
 
     public static PedidoEntity pedidoToEntity(Pedido pedido) {
         return PedidoEntity.builder()
-                .id(pedido.getId())
-                .clienteId(pedido.getClienteId())
-                .nomeCliente(pedido.getNomeCliente())
+                .pedidoId(pedido.getPedidoId())
                 .status(pedido.getStatus())
-                .statusPagamento(pedido.getStatusPagamento())
-                .produtos(pedido.getProdutos())
+                .produtos(ProdutoMapper.produtoToEntity(pedido.getProdutos()))
                 .build();
     }
 
     public static Pedido pedidoEntityToPedido(PedidoEntity pedidoEntity) {
         return Pedido.builder()
                 .id(pedidoEntity.getId())
-                .clienteId(pedidoEntity.getClienteId())
-                .nomeCliente(pedidoEntity.getNomeCliente())
+                .pedidoId(pedidoEntity.getPedidoId())
                 .status(pedidoEntity.getStatus())
-                .statusPagamento(pedidoEntity.getStatusPagamento())
-                .produtos(pedidoEntity.getProdutos())
+                .produtos(ProdutoMapper.produtoEntityToProduto(pedidoEntity.getProdutos()))
                 .build();
     }
 
     public static Pedido pedidoFormToPedido(PedidoForm pedidoForm) {
         return Pedido.builder()
-                .clienteId(pedidoForm.getClienteId())
-                .nomeCliente(pedidoForm.getNomeCliente())
-                .produtos(pedidoForm.getProdutosId())
+                .pedidoId(pedidoForm.getPedidoId())
+                .produtos(ProdutoMapper.produtoFormToProduto(pedidoForm.getProdutosForm()))
                 .build();
     }
 }

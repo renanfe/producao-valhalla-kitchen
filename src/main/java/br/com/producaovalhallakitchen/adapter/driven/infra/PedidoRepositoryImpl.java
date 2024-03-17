@@ -1,7 +1,7 @@
 package br.com.producaovalhallakitchen.adapter.driven.infra;
 
 import br.com.producaovalhallakitchen.adapter.driven.infra.entity.PedidoEntity;
-import br.com.producaovalhallakitchen.adapter.driven.infra.jpa.PedidoRepositoryJpa;
+import br.com.producaovalhallakitchen.adapter.driven.infra.jpa.PedidoRepositoryMongo;
 import br.com.producaovalhallakitchen.adapter.utils.mappers.PedidoMapper;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoRepository;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
@@ -15,17 +15,17 @@ import java.util.Optional;
 @Repository
 public class PedidoRepositoryImpl implements PedidoRepository {
 
-    private final PedidoRepositoryJpa pedidoRepositoryJpa;
+    private final PedidoRepositoryMongo pedidoRepositoryMongo;
 
-    public PedidoRepositoryImpl(PedidoRepositoryJpa pedidoRepositoryJpa) {
-        this.pedidoRepositoryJpa = pedidoRepositoryJpa;
+    public PedidoRepositoryImpl(PedidoRepositoryMongo pedidoRepositoryMongo) {
+        this.pedidoRepositoryMongo = pedidoRepositoryMongo;
     }
 
     @Override
     public List<Pedido> buscarTodosPedidos() {
         List<Pedido> pedidos = new ArrayList<>();
 
-        for (PedidoEntity pedido : pedidoRepositoryJpa.findAll()) {
+        for (PedidoEntity pedido : pedidoRepositoryMongo.findAll()) {
             pedidos.add(PedidoMapper.pedidoEntityToPedido(pedido));
         }
 
@@ -33,13 +33,13 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     }
 
     @Override
-    public Optional<Pedido> buscarPedidoPorId(Long id) {
-        return pedidoRepositoryJpa.findById(id).map(PedidoMapper::pedidoEntityToPedido);
+    public Optional<Pedido> buscarPedidoPorId(String id) {
+        return pedidoRepositoryMongo.findById(id).map(PedidoMapper::pedidoEntityToPedido);
     }
 
     @Override
     public Pedido salvarPedido(Pedido pedido) {
-        PedidoEntity pedidoEntity = pedidoRepositoryJpa.save(PedidoMapper.pedidoToEntity(pedido));
+        PedidoEntity pedidoEntity = pedidoRepositoryMongo.save(PedidoMapper.pedidoToEntity(pedido));
         return PedidoMapper.pedidoEntityToPedido(pedidoEntity);
     }
 
@@ -47,7 +47,7 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     public List<Pedido> buscarFilaPedidos(List<String> status) {
         List<Pedido> pedidos = new ArrayList<>();
 
-        for (PedidoEntity pedido : pedidoRepositoryJpa.findByStatusIn(status)) {
+        for (PedidoEntity pedido : pedidoRepositoryMongo.findByStatusIn(status)) {
             pedidos.add(PedidoMapper.pedidoEntityToPedido(pedido));
         }
         pedidos.sort(Comparator.comparing(pedido -> {

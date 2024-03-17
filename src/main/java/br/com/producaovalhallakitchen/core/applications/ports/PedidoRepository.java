@@ -9,7 +9,7 @@ public interface PedidoRepository {
 
     List<Pedido> buscarTodosPedidos();
 
-    Optional<Pedido> buscarPedidoPorId(Long id);
+    Optional<Pedido> buscarPedidoPorId(String id);
 
     Pedido salvarPedido(Pedido pedido);
 

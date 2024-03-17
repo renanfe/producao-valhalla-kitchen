@@ -1,46 +1,46 @@
 package br.com.producaovalhallakitchen.utils;
 
 import br.com.producaovalhallakitchen.adapter.driven.infra.entity.PedidoEntity;
+import br.com.producaovalhallakitchen.adapter.driven.infra.entity.ProdutoEntity;
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
+import br.com.producaovalhallakitchen.adapter.driver.form.ProdutoForm;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
+import br.com.producaovalhallakitchen.core.domain.Produto;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 public class PedidoHelper {
     public static PedidoForm buildPedidoForm(){
+        List<ProdutoForm> produtosForm = new ArrayList<>();
+        produtosForm.add(ProdutoForm.builder().nome("Odin").quantidade(1).build());
+
         return PedidoForm.builder()
-                .clienteId(UUID.randomUUID())
-                .nomeCliente("Teste")
-                .produtosId(List.of(gerarLong()))
+                .pedidoId(1L)
+                .produtosForm(produtosForm)
                 .build();
     }
 
     public static Pedido buildPedido(){
+        List<Produto> produtos = new ArrayList<>();
+        produtos.add(Produto.builder().nome("Odin").quantidade(1).build());
+
         return Pedido.builder()
-                .produtos(List.of(gerarLong()))
-                .id(gerarLong())
-                .nomeCliente("Teste")
-                .clienteId(UUID.randomUUID())
+                .pedidoId(1L)
+                .status("Recebido")
+                .produtos(produtos)
                 .build();
     }
 
-    public static long gerarLong() {
-        return new Random().nextLong();
-    }
-
-    public static BigDecimal gerarBigDecimal() {
-        return BigDecimal.ONE;
-    }
-
     public static PedidoEntity buildPedidoEntity () {
+        List<ProdutoEntity> produtosEntity = new ArrayList<>();
+        produtosEntity.add(ProdutoEntity.builder().nome("Odin").quantidade(1).build());
+
         return PedidoEntity.builder()
-                .id(gerarLong())
-                .clienteId(UUID.randomUUID())
-                .nomeCliente("Teste")
-                .produtos(List.of(gerarLong()))
+                .id("65f50c3184f63148281e01fe")
+                .status("Em preparação")
+                .pedidoId(1L)
+                .produtos(produtosEntity)
                 .build();
     }
 
