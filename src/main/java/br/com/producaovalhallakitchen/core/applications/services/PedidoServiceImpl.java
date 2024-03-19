@@ -62,7 +62,7 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     public List<Pedido> consultarFila() {
-        List<String> status = Arrays.asList("Pronto", "Em preparação", "Recebido");
+        List<Status> status = Arrays.asList(Status.PRONTO, Status.EM_PREPARACAO, Status.RECEBIDO);
         return pedidoRepository.buscarFilaPedidos(status);
     }
 
