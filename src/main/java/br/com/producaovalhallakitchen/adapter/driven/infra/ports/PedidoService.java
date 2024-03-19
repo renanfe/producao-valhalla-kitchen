@@ -5,6 +5,6 @@ import br.com.producaovalhallakitchen.core.domain.Pedido;
 
 public interface PedidoService {
 
-    public Pedido criarPedido(PedidoForm pedidoForm);
+    Pedido criarPedido(PedidoForm pedidoForm);
 
 }
