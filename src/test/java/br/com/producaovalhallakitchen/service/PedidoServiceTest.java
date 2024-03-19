@@ -3,7 +3,6 @@ package br.com.producaovalhallakitchen.service;
 
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoRepository;
-import br.com.producaovalhallakitchen.core.applications.ports.PedidoSQSIN;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoSQSOUT;
 import br.com.producaovalhallakitchen.core.applications.services.PedidoServiceImpl;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
