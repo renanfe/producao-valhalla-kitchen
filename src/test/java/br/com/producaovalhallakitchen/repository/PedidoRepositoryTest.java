@@ -4,6 +4,7 @@ import br.com.producaovalhallakitchen.adapter.driven.infra.PedidoRepositoryImpl;
 import br.com.producaovalhallakitchen.adapter.driven.infra.entity.PedidoEntity;
 import br.com.producaovalhallakitchen.adapter.driven.infra.jpa.PedidoRepositoryMongo;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
+import br.com.producaovalhallakitchen.core.domain.Status;
 import br.com.producaovalhallakitchen.utils.PedidoHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,11 +63,11 @@ class PedidoRepositoryTest {
     @Test
     void quandoBuscoFilaDePedidos_entaoDeveBuscarFilaDePedidosNaBase(){
         PedidoEntity pedidoEntityPronto = PedidoHelper.buildPedidoEntity();
-        pedidoEntityPronto.setStatus("Pronto");
+        pedidoEntityPronto.setStatus(Status.PRONTO);
         PedidoEntity pedidoEntityPreparação = PedidoHelper.buildPedidoEntity();
-        pedidoEntityPreparação.setStatus("Em preparação");
+        pedidoEntityPreparação.setStatus(Status.EM_PREPARACAO);
         PedidoEntity pedidoEntityRecebido = PedidoHelper.buildPedidoEntity();
-        pedidoEntityRecebido.setStatus("Recebido");
+        pedidoEntityRecebido.setStatus(Status.RECEBIDO);
         when(pedidoRepositoryJpa.findByStatusIn(anyList())).thenReturn(List.of(pedidoEntityPronto, pedidoEntityPreparação, pedidoEntityRecebido));
         List<Pedido> pedido = pedidoRepository.buscarFilaPedidos(List.of("Recebido", "Em preparação", "Pronto"));
         assertNotNull(pedido);

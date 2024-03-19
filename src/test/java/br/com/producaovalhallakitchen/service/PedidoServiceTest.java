@@ -3,7 +3,8 @@ package br.com.producaovalhallakitchen.service;
 
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoRepository;
-import br.com.producaovalhallakitchen.core.applications.services.PedidoService;
+import br.com.producaovalhallakitchen.core.applications.ports.PedidoSQSOUT;
+import br.com.producaovalhallakitchen.core.applications.services.PedidoServiceImpl;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
 import br.com.producaovalhallakitchen.utils.PedidoHelper;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,14 +22,17 @@ import java.util.Optional;
 @ExtendWith(MockitoExtension.class)
 class PedidoServiceTest {
 
-    PedidoService pedidoService;
+    PedidoServiceImpl pedidoService;
 
     @Mock
     PedidoRepository pedidoRepository;
 
+    @Mock
+    PedidoSQSOUT pedidoSQSOUT;
+
     @BeforeEach
     void setUp() {
-        pedidoService = new PedidoService(pedidoRepository);
+        pedidoService = new PedidoServiceImpl(pedidoRepository, pedidoSQSOUT);
     }
 
     @Test

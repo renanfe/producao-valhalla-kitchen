@@ -7,3 +7,15 @@ spring:
     mongodb:
       uri: mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}:27017/
       database: ${MONGODB_DATABASE}
+  cloud:
+    aws:
+      credentials:
+        accessKey: ${AWS_ACCESS_KEY}
+        secretKey: ${AWS_SECRET_KEY}
+      region:
+        static: ${AWS_REGION}
+      sqs:
+        endpoint: ${AWS_SQS_ENDPOINT}
+queue:
+  pedido-aprovado: ${QUEUE_PEDIDO_APROVADO}
+  atualizacao-situacao-pedido: ${QUEUE_ATUALIZACAO_SITUACAO_PEDIDO}

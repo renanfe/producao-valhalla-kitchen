@@ -1,7 +1,7 @@
 package br.com.producaovalhallakitchen.adapter.driver;
 
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
-import br.com.producaovalhallakitchen.core.applications.services.PedidoService;
+import br.com.producaovalhallakitchen.core.applications.services.PedidoServiceImpl;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +12,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/pedidos")
 public class PedidoController {
-    private final PedidoService pedidoService;
+    private final PedidoServiceImpl pedidoService;
 
-    public PedidoController(PedidoService pedidoService) {
+    public PedidoController(PedidoServiceImpl pedidoService) {
         this.pedidoService = pedidoService;
     }
 

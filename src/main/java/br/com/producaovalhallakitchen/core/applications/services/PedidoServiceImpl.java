@@ -1,9 +1,12 @@
 package br.com.producaovalhallakitchen.core.applications.services;
 
+import br.com.producaovalhallakitchen.adapter.driven.infra.ports.PedidoService;
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
 import br.com.producaovalhallakitchen.adapter.utils.mappers.PedidoMapper;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoRepository;
+import br.com.producaovalhallakitchen.core.applications.ports.PedidoSQSOUT;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
+import br.com.producaovalhallakitchen.core.domain.Status;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,12 +15,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 @Service
-public class PedidoService {
+public class PedidoServiceImpl implements PedidoService {
 
     private final PedidoRepository pedidoRepository;
 
-    public PedidoService(PedidoRepository pedidoRepository) {
+    private final PedidoSQSOUT pedidoSQSOUT;
+
+    public PedidoServiceImpl(PedidoRepository pedidoRepository, PedidoSQSOUT pedidoSQSOUT) {
         this.pedidoRepository = pedidoRepository;
+        this.pedidoSQSOUT = pedidoSQSOUT;
     }
 
     public List<Pedido> buscarTodosPedidos() {
@@ -38,18 +44,18 @@ public class PedidoService {
         if (pedido.isPresent()) {
             Pedido pedidoAtualizado = atualizarParaProximoStatus(pedido.get(), pedido.get().getStatus());
             pedidoRepository.salvarPedido(pedidoAtualizado);
-
+            pedidoSQSOUT.publicarAtualizacaoPedido(pedidoAtualizado);
             return Optional.of(pedidoAtualizado);
         }
         return pedido;
     }
 
-    private Pedido atualizarParaProximoStatus(Pedido pedido, String status) {
+    private Pedido atualizarParaProximoStatus(Pedido pedido, Status status) {
         switch (status) {
-            case "Recebido" -> pedido.setStatus("Em preparação");
-            case "Em preparação" -> pedido.setStatus("Pronto");
-            case "Pronto" -> pedido.setStatus("Retirado");
-            case "Retirado" -> pedido.setStatus("Finalizado");
+            case RECEBIDO -> pedido.setStatus(Status.EM_PREPARACAO);
+            case EM_PREPARACAO -> pedido.setStatus(Status.PRONTO);
+            case PRONTO -> pedido.setStatus(Status.RETIRADO);
+            case RETIRADO -> pedido.setStatus(Status.FINALIZADO);
             default -> throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
         }
         return pedido;

@@ -5,6 +5,7 @@ import br.com.producaovalhallakitchen.adapter.driven.infra.jpa.PedidoRepositoryM
 import br.com.producaovalhallakitchen.adapter.utils.mappers.PedidoMapper;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoRepository;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
+import br.com.producaovalhallakitchen.core.domain.Status;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -51,12 +52,12 @@ public class PedidoRepositoryImpl implements PedidoRepository {
             pedidos.add(PedidoMapper.pedidoEntityToPedido(pedido));
         }
         pedidos.sort(Comparator.comparing(pedido -> {
-            String statusPedido = pedido.getStatus();
-            if (statusPedido.equals("Pronto")) {
+            Status statusPedido = pedido.getStatus();
+            if (statusPedido.equals(Status.PRONTO)) {
                 return 1;
-            } else if (statusPedido.equals("Em preparação")) {
+            } else if (statusPedido.equals(Status.EM_PREPARACAO)) {
                 return 2;
-            } else if (statusPedido.equals("Recebido")) {
+            } else if (statusPedido.equals(Status.RECEBIDO)) {
                 return 3;
             } else {
                 return 4; // Para outros status não especificados

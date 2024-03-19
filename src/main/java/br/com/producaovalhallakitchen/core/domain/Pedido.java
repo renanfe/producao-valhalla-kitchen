@@ -17,7 +17,7 @@ public class Pedido {
 
     @Builder.Default
     @Setter
-    private String status = "Recebido";
+    private Status status = Status.RECEBIDO;
 
     private List<Produto> produtos;
 }
