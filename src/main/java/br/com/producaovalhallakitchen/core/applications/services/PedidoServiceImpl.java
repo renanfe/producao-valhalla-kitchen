@@ -4,7 +4,6 @@ import br.com.producaovalhallakitchen.adapter.driven.infra.ports.PedidoService;
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
 import br.com.producaovalhallakitchen.adapter.utils.mappers.PedidoMapper;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoRepository;
-import br.com.producaovalhallakitchen.core.applications.ports.PedidoSQSIN;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoSQSOUT;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
 import org.springframework.http.HttpStatus;
