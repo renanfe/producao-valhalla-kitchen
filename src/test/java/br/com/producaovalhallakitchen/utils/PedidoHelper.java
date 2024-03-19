@@ -4,6 +4,7 @@ import br.com.producaovalhallakitchen.adapter.driven.infra.entity.PedidoEntity;
 import br.com.producaovalhallakitchen.adapter.driven.infra.entity.ProdutoEntity;
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
 import br.com.producaovalhallakitchen.adapter.driver.form.ProdutoForm;
+import br.com.producaovalhallakitchen.adapter.driver.form.SituacaoPedidoForm;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
 import br.com.producaovalhallakitchen.core.domain.Produto;
 import br.com.producaovalhallakitchen.core.domain.Status;
@@ -54,6 +55,13 @@ public class PedidoHelper {
     }
     public static Message<PedidoForm> buildMessage() {
         return new GenericMessage<PedidoForm>(buildPedidoForm());
+    }
+
+    public static SituacaoPedidoForm buildSituacaoPedidoForm() {
+        return SituacaoPedidoForm.builder()
+                .pedidoId(1L)
+                .status(Status.RECEBIDO)
+                .build();
     }
 
 }

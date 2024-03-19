@@ -27,7 +27,7 @@ class PedidoSQSOUTImplTest {
     @Test
     void quandoAlteraStatusDoPedido_entaoDevoEncaminharMensagemComOPedido(){
         doReturn(PedidoHelper.buildSendResult()).when(sqsTemplate).send(any());
-        this.pedidoSQSOUT.publicarAtualizacaoPedido(PedidoHelper.buildPedido());
+        this.pedidoSQSOUT.publicarAtualizacaoPedido(PedidoHelper.buildSituacaoPedidoForm());
         verify(this.sqsTemplate, times(1)).send(any());
     }
 }

@@ -39,15 +39,13 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     public Optional<Pedido> alterarStatusPedido(String id) {
-        Optional<Pedido> pedido = pedidoRepository.buscarPedidoPorId(id);
-
-        if (pedido.isPresent()) {
-            Pedido pedidoAtualizado = atualizarParaProximoStatus(pedido.get(), pedido.get().getStatus());
-            pedidoRepository.salvarPedido(pedidoAtualizado);
-            pedidoSQSOUT.publicarAtualizacaoPedido(pedidoAtualizado);
-            return Optional.of(pedidoAtualizado);
+        Optional<Pedido> pedidoAtualizado = pedidoRepository.buscarPedidoPorId(id)
+                .map(pedido -> atualizarParaProximoStatus(pedido, pedido.getStatus()))
+                .map(pedidoRepository::salvarPedido);
+        if (pedidoAtualizado.isPresent()) {
+            pedidoSQSOUT.publicarAtualizacaoPedido(PedidoMapper.pagamentoToSituacaoPedidoForm(pedidoAtualizado.get()));
         }
-        return pedido;
+        return pedidoAtualizado;
     }
 
     private Pedido atualizarParaProximoStatus(Pedido pedido, Status status) {

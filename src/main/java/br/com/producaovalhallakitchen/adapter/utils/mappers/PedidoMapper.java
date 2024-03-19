@@ -2,8 +2,8 @@ package br.com.producaovalhallakitchen.adapter.utils.mappers;
 
 import br.com.producaovalhallakitchen.adapter.driven.infra.entity.PedidoEntity;
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
+import br.com.producaovalhallakitchen.adapter.driver.form.SituacaoPedidoForm;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
-import br.com.producaovalhallakitchen.core.domain.Produto;
 
 public class PedidoMapper {
     private PedidoMapper() {
@@ -32,6 +32,13 @@ public class PedidoMapper {
         return Pedido.builder()
                 .pedidoId(pedidoForm.getPedidoId())
                 .produtos(ProdutoMapper.produtoFormToProduto(pedidoForm.getProdutosForm()))
+                .build();
+    }
+
+    public static SituacaoPedidoForm pagamentoToSituacaoPedidoForm (Pedido pedidoAtualizado) {
+        return SituacaoPedidoForm.builder()
+                .pedidoId(pedidoAtualizado.getPedidoId())
+                .status(pedidoAtualizado.getStatus())
                 .build();
     }
 }
