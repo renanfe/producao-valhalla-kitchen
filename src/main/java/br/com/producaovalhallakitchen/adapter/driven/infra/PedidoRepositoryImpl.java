@@ -45,7 +45,7 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     }
 
     @Override
-    public List<Pedido> buscarFilaPedidos(List<String> status) {
+    public List<Pedido> buscarFilaPedidos(List<Status> status) {
         List<Pedido> pedidos = new ArrayList<>();
 
         for (PedidoEntity pedido : pedidoRepositoryMongo.findByStatusIn(status)) {
