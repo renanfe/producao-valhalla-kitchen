@@ -1,8 +1,11 @@
 package br.com.producaovalhallakitchen.core.applications.services;
 
+import br.com.producaovalhallakitchen.adapter.driven.infra.ports.PedidoService;
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
 import br.com.producaovalhallakitchen.adapter.utils.mappers.PedidoMapper;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoRepository;
+import br.com.producaovalhallakitchen.core.applications.ports.PedidoSQSIN;
+import br.com.producaovalhallakitchen.core.applications.ports.PedidoSQSOUT;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -12,12 +15,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 @Service
-public class PedidoService {
+public class PedidoServiceImpl implements PedidoService {
 
     private final PedidoRepository pedidoRepository;
 
-    public PedidoService(PedidoRepository pedidoRepository) {
+    private final PedidoSQSOUT pedidoSQSOUT;
+
+    public PedidoServiceImpl(PedidoRepository pedidoRepository, PedidoSQSOUT pedidoSQSOUT) {
         this.pedidoRepository = pedidoRepository;
+        this.pedidoSQSOUT = pedidoSQSOUT;
     }
 
     public List<Pedido> buscarTodosPedidos() {
@@ -38,7 +44,7 @@ public class PedidoService {
         if (pedido.isPresent()) {
             Pedido pedidoAtualizado = atualizarParaProximoStatus(pedido.get(), pedido.get().getStatus());
             pedidoRepository.salvarPedido(pedidoAtualizado);
-
+            pedidoSQSOUT.publicarAtualizacaoPedido(pedidoAtualizado);
             return Optional.of(pedidoAtualizado);
         }
         return pedido;

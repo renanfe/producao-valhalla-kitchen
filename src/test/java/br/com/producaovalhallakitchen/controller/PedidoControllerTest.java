@@ -2,7 +2,7 @@ package br.com.producaovalhallakitchen.controller;
 
 import br.com.producaovalhallakitchen.adapter.driver.PedidoController;
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
-import br.com.producaovalhallakitchen.core.applications.services.PedidoService;
+import br.com.producaovalhallakitchen.core.applications.services.PedidoServiceImpl;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
 import br.com.producaovalhallakitchen.utils.PedidoHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PedidoControllerTest {
 
     @Mock
-    private PedidoService pedidoService;
+    private PedidoServiceImpl pedidoService;
     private MockMvc mockMvc;
 
     @BeforeEach
