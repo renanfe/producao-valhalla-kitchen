@@ -69,7 +69,7 @@ class PedidoRepositoryTest {
         PedidoEntity pedidoEntityRecebido = PedidoHelper.buildPedidoEntity();
         pedidoEntityRecebido.setStatus(Status.RECEBIDO);
         when(pedidoRepositoryJpa.findByStatusIn(anyList())).thenReturn(List.of(pedidoEntityPronto, pedidoEntityPreparação, pedidoEntityRecebido));
-        List<Pedido> pedido = pedidoRepository.buscarFilaPedidos(List.of("Recebido", "Em preparação", "Pronto"));
+        List<Pedido> pedido = pedidoRepository.buscarFilaPedidos(List.of(Status.RECEBIDO, Status.EM_PREPARACAO, Status.PRONTO));
         assertNotNull(pedido);
         verify(pedidoRepositoryJpa, times(1)).findByStatusIn(anyList());
     }
