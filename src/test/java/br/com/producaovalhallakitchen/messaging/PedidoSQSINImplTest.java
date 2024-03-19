@@ -3,7 +3,6 @@ package br.com.producaovalhallakitchen.messaging;
 import br.com.producaovalhallakitchen.adapter.driven.infra.messaging.PedidoSQSINImpl;
 import br.com.producaovalhallakitchen.adapter.driven.infra.ports.PedidoService;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoSQSIN;
-import br.com.producaovalhallakitchen.core.applications.services.PedidoServiceImpl;
 import br.com.producaovalhallakitchen.utils.PedidoHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
