@@ -1,7 +1,7 @@
 package br.com.producaovalhallakitchen.adapter.driven.infra.messaging;
 
+import br.com.producaovalhallakitchen.adapter.driver.form.SituacaoPedidoForm;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoSQSOUT;
-import br.com.producaovalhallakitchen.core.domain.Pedido;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,12 +19,12 @@ public class PedidoSQSOUTImpl implements PedidoSQSOUT {
     }
 
     @Override
-    public void publicarAtualizacaoPedido(Pedido pedido) {
+    public void publicarAtualizacaoPedido(SituacaoPedidoForm situacaoPedidoForm) {
         this.sqsTemplate
                 .send(sqsSendOptions ->
                         sqsSendOptions
                                 .queue(queueAtualizacaoSituacaoPedido)
-                                .payload(pedido)
+                                .payload(situacaoPedidoForm)
                 );
     }
 }

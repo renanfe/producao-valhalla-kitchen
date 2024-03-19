@@ -1,8 +1,8 @@
 package br.com.producaovalhallakitchen.core.applications.ports;
 
-import br.com.producaovalhallakitchen.core.domain.Pedido;
+import br.com.producaovalhallakitchen.adapter.driver.form.SituacaoPedidoForm;
 
 public interface PedidoSQSOUT {
 
-    void publicarAtualizacaoPedido(Pedido pedido);
+    void publicarAtualizacaoPedido(SituacaoPedidoForm situacaoPedidoForm);
 }
