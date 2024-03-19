@@ -6,9 +6,13 @@ import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
 import br.com.producaovalhallakitchen.adapter.driver.form.ProdutoForm;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
 import br.com.producaovalhallakitchen.core.domain.Produto;
+import io.awspring.cloud.sqs.operations.SendResult;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.GenericMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class PedidoHelper {
     public static PedidoForm buildPedidoForm(){
@@ -42,6 +46,13 @@ public class PedidoHelper {
                 .pedidoId(1L)
                 .produtos(produtosEntity)
                 .build();
+    }
+
+    public static SendResult buildSendResult() {
+        return new SendResult(UUID.randomUUID(), "teste.com.br", buildMessage(), null);
+    }
+    public static Message<PedidoForm> buildMessage() {
+        return new GenericMessage<PedidoForm>(buildPedidoForm());
     }
 
 }
