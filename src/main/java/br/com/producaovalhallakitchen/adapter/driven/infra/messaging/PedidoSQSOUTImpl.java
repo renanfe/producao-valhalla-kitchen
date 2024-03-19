@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PedidoSQSOUTImpl implements PedidoSQSOUT {
 
-    private SqsTemplate sqsTemplate;
+    private final SqsTemplate sqsTemplate;
 
     @Value("${queue.atualizacao-situacao-pedido}")
     private String queueAtualizacaoSituacaoPedido;
