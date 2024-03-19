@@ -1,5 +1,6 @@
 package br.com.producaovalhallakitchen.adapter.driven.infra.entity;
 
+import br.com.producaovalhallakitchen.core.domain.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class PedidoEntity {
 
     private Long pedidoId;
 
-    private String status;
+    private Status status;
 
     private List<ProdutoEntity> produtos;
 
