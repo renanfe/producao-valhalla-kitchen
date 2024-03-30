@@ -5,7 +5,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}:27017/
+      uri: mongodb://${DB_USERNAME}:${DB_PASSWORD}@${MONGODB_HOST}:27017/
       database: ${MONGODB_DATABASE}
   cloud:
     aws:
@@ -14,8 +14,6 @@ spring:
         secretKey: ${AWS_SECRET_KEY}
       region:
         static: ${AWS_REGION}
-      sqs:
-        endpoint: ${AWS_SQS_ENDPOINT}
 queue:
-  pedido-aprovado: ${QUEUE_PEDIDO_APROVADO}
-  atualizacao-situacao-pedido: ${QUEUE_ATUALIZACAO_SITUACAO_PEDIDO}
+  pedido-aprovado: queue-pedido-aprovado
+  atualizacao-situacao-pedido: queue-atualizacao-situacao-pedido
