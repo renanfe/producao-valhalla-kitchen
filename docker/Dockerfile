@@ -9,6 +9,6 @@ ENV MONGODB_USERNAME=${MONGODB_USERNAME}
 ENV MONGODB_PASSWORD=${MONGODB_PASSWORD}
 ENV MONGODB_HOST=${MONGODB_HOST}
 ENV SPRING_PROFILE=${SPRING_PROFILE}
-COPY ./producao-valhalla-kitchen-1.0.jar /usr/src/myapp/app.jar
+COPY ../target/producao-valhalla-kitchen-1.0.jar /usr/src/myapp/app.jar
 WORKDIR /usr/src/myapp
 ENTRYPOINT java -Dspring.profiles.active="$SPRING_PROFILE" -jar app.jar
