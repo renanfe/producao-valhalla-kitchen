@@ -8,6 +8,7 @@ import br.com.producaovalhallakitchen.adapter.driver.form.SituacaoPedidoForm;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
 import br.com.producaovalhallakitchen.core.domain.Produto;
 import br.com.producaovalhallakitchen.core.domain.Status;
+import com.google.gson.Gson;
 import io.awspring.cloud.sqs.operations.SendResult;
 import io.swagger.v3.core.util.Json;
 import org.springframework.messaging.Message;
@@ -58,11 +59,12 @@ public class PedidoHelper {
         return new GenericMessage<String>(Json.pretty(buildPedidoForm()));
     }
 
-    public static SituacaoPedidoForm buildSituacaoPedidoForm() {
-        return SituacaoPedidoForm.builder()
+    public static String buildSituacaoPedidoForm() {
+         SituacaoPedidoForm situacaoPedidoForm = SituacaoPedidoForm.builder()
                 .pedidoId(1L)
                 .status(Status.RECEBIDO)
                 .build();
+        return new Gson().toJson(situacaoPedidoForm, SituacaoPedidoForm.class);
     }
 
 }
