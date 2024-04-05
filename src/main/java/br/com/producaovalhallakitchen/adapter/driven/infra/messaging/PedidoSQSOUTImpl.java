@@ -19,7 +19,7 @@ public class PedidoSQSOUTImpl implements PedidoSQSOUT {
     }
 
     @Override
-    public void publicarAtualizacaoPedido(SituacaoPedidoForm situacaoPedidoForm) {
+    public void publicarAtualizacaoPedido(String situacaoPedidoForm) {
         this.sqsTemplate
                 .send(sqsSendOptions ->
                         sqsSendOptions
