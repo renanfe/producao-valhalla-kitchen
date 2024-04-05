@@ -4,6 +4,7 @@ import br.com.producaovalhallakitchen.adapter.driven.infra.entity.PedidoEntity;
 import br.com.producaovalhallakitchen.adapter.driver.form.PedidoForm;
 import br.com.producaovalhallakitchen.adapter.driver.form.SituacaoPedidoForm;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
+import com.google.gson.Gson;
 
 public class PedidoMapper {
     private PedidoMapper() {
@@ -31,14 +32,12 @@ public class PedidoMapper {
     public static Pedido pedidoFormToPedido(PedidoForm pedidoForm) {
         return Pedido.builder()
                 .pedidoId(pedidoForm.getPedidoId())
-                .produtos(ProdutoMapper.produtoFormToProduto(pedidoForm.getProdutosForm()))
+                .produtos(ProdutoMapper.produtoFormToProduto(pedidoForm.getProdutos()))
                 .build();
     }
 
-    public static SituacaoPedidoForm pagamentoToSituacaoPedidoForm (Pedido pedidoAtualizado) {
-        return SituacaoPedidoForm.builder()
-                .pedidoId(pedidoAtualizado.getPedidoId())
-                .status(pedidoAtualizado.getStatus())
-                .build();
+    public static String pagamentoToSituacaoPedidoForm (Pedido pedidoAtualizado) {
+        return new Gson().toJson(pedidoAtualizado, Pedido.class);
+
     }
 }
