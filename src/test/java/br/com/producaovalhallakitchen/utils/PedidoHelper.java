@@ -9,6 +9,7 @@ import br.com.producaovalhallakitchen.core.domain.Pedido;
 import br.com.producaovalhallakitchen.core.domain.Produto;
 import br.com.producaovalhallakitchen.core.domain.Status;
 import io.awspring.cloud.sqs.operations.SendResult;
+import io.swagger.v3.core.util.Json;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.GenericMessage;
 
@@ -23,7 +24,7 @@ public class PedidoHelper {
 
         return PedidoForm.builder()
                 .pedidoId(1L)
-                .produtosForm(produtosForm)
+                .produtos(produtosForm)
                 .build();
     }
 
@@ -53,8 +54,8 @@ public class PedidoHelper {
     public static SendResult buildSendResult() {
         return new SendResult(UUID.randomUUID(), "teste.com.br", buildMessage(), null);
     }
-    public static Message<PedidoForm> buildMessage() {
-        return new GenericMessage<PedidoForm>(buildPedidoForm());
+    public static Message<String> buildMessage() {
+        return new GenericMessage<String>(Json.pretty(buildPedidoForm()));
     }
 
     public static SituacaoPedidoForm buildSituacaoPedidoForm() {
