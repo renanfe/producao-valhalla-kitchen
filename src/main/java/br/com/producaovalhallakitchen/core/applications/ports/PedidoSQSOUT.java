@@ -4,5 +4,5 @@ import br.com.producaovalhallakitchen.adapter.driver.form.SituacaoPedidoForm;
 
 public interface PedidoSQSOUT {
 
-    void publicarAtualizacaoPedido(SituacaoPedidoForm situacaoPedidoForm);
+    void publicarAtualizacaoPedido(String situacaoPedidoForm);
 }

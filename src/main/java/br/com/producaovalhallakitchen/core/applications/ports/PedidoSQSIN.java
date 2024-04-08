@@ -6,6 +6,6 @@ import org.springframework.messaging.handler.annotation.Payload;
 
 public interface PedidoSQSIN {
 
-    void receberMensagem(@Payload Message<PedidoForm> message);
+    void receberMensagem(@Payload Message<String> message);
 
 }
