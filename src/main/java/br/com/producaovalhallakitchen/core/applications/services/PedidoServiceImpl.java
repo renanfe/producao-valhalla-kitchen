@@ -7,6 +7,7 @@ import br.com.producaovalhallakitchen.core.applications.ports.PedidoRepository;
 import br.com.producaovalhallakitchen.core.applications.ports.PedidoSQSOUT;
 import br.com.producaovalhallakitchen.core.domain.Pedido;
 import br.com.producaovalhallakitchen.core.domain.Status;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+@Log4j2
 @Service
 public class PedidoServiceImpl implements PedidoService {
 
@@ -43,6 +45,8 @@ public class PedidoServiceImpl implements PedidoService {
                 .map(pedido -> atualizarParaProximoStatus(pedido, pedido.getStatus()))
                 .map(pedidoRepository::salvarPedido);
         if (pedidoAtualizado.isPresent()) {
+            Pedido pedidoNovo = pedidoAtualizado.get();
+            log.info("Pedido nº{} atualizado pela cozinha, novo Status: {}.", pedidoNovo.getPedidoId(), pedidoNovo.getStatus().name());
             pedidoSQSOUT.publicarAtualizacaoPedido(PedidoMapper.pagamentoToSituacaoPedidoForm(pedidoAtualizado.get()));
         }
         return pedidoAtualizado;
